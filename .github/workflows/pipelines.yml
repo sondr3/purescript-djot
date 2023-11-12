@@ -1,0 +1,49 @@
+name: pipeline
+
+on: [push, pull_request]
+
+jobs:
+  pipeline:
+    name: pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PureScript
+        uses: purescript-contrib/setup-purescript@main
+        with:
+          purescript: latest
+          psa: latest
+
+      - name: Cache PureScript dependencies
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-spago-${{ hashFiles('**/*.dhall') }}
+          path: |
+            .spago
+            output
+
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v3.6.0
+        with:
+          node-version: latest
+          cache: "pnpm"
+
+      - name: Install npm packages
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: npx purs-tidy check src test
+
+      - name: Install dependencies
+        run: npx spago install
+
+      - name: Build
+        run: npx spago build
+
+      - name: Test
+        run: npx spago test --strict

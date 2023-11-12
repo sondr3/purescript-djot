@@ -1,0 +1,19 @@
+{
+  "name": "purescript-djot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@djot/djot": "0.2.5"
+  },
+  "devDependencies": {
+    "purs-tidy": "0.10.0",
+    "spago": "0.93.18"
+  }
+}
