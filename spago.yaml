@@ -1,0 +1,22 @@
+package:
+  name: djot-ps
+  dependencies:
+    - console
+    - debug
+    - effect
+    - foreign
+    - foreign-object
+    - maybe
+    - ordered-collections
+    - prelude
+    - record
+    - spec
+    - strings
+    - tuples
+  test:
+    dependencies: []
+    main: Test.Main
+workspace:
+  extra_packages: {}
+  package_set:
+    registry: 44.3.0

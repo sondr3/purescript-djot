@@ -1,0 +1,18 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@djot/djot':
+    specifier: 0.2.3
+    version: 0.2.3
+
+packages:
+
+  /@djot/djot@0.2.3:
+    resolution: {integrity: sha512-5Oa9adc0rP1pK42glgn8Ascxak7oaDAplgTA8e4zqqPJGyPsbpkYWKN+34QhsFlpwHI/B3W2UTr25R9VRcMPCg==}
+    engines: {node: '>=17.0.0'}
+    hasBin: true
+    dev: false
