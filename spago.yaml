@@ -3,20 +3,17 @@ package:
   dependencies:
     - console
     - debug
-    - effect
     - foreign
     - foreign-object
     - maybe
-    - ordered-collections
     - prelude
     - record
-    - spec
     - strings
     - tuples
     - undefined-is-not-a-problem
-    - unsafe-coerce
   test:
-    dependencies: []
+    dependencies:
+      - spec
     main: Test.Main
 workspace:
   extra_packages: {}

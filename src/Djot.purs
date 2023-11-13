@@ -4,10 +4,10 @@ import Prelude
 
 import Data.Function.Uncurried (Fn2, Fn3, runFn2, runFn3)
 import Data.Maybe (Maybe(..), isJust)
-import Data.String (toLower)
 import Data.Tuple (Tuple)
 import Data.Undefined.NoProblem (Opt, opt, toMaybe)
 import Effect (Effect)
+import Effect.Class.Console (logShow)
 import Foreign.Object (Object)
 import Foreign.Object as Object
 
@@ -305,21 +305,17 @@ emptyVisitor =
   , reference: Nothing
   }
 
-emphVisitor :: HTMLVisitor -> HTMLVisitor
-emphVisitor v = buildOverrides $ v
-  { emph = Just emphRenderer
-  , section = Just sectionRenderer
-  , heading = Just headingRenderer
+emptyRenderer :: RenderHTMLOptions
+emptyRenderer = RenderHTMLOptions
+  { overrides: Nothing
+  , warn: Nothing
   }
 
 defaultRenderer :: RenderHTMLOptions
 defaultRenderer = RenderHTMLOptions
-  { overrides: Just $ emphVisitor emptyVisitor
-  , warn: Nothing
+  { overrides: Just $ buildOverrides emptyVisitor
+  , warn: Just (\w -> logShow w)
   }
-
-emphRenderer :: Emph -> HTMLRenderer -> String
-emphRenderer node ctx = "<span class='emphasis'>" <> (ctx.renderChildren node) <> "</span>"
 
 lookupAttribute :: String -> Attributes -> Maybe String
 lookupAttribute key attrs = Object.lookup key attrs
@@ -339,12 +335,6 @@ insertAttribute :: forall a. HasAttributes a -> String -> (String -> String) -> 
 insertAttribute node key f = case maybeAttribute node key of
   Just val -> node { attributes = opt $ Object.insert key (f val) (getAttributes node) }
   Nothing -> node
-
-sectionRenderer :: Section -> HTMLRenderer -> String
-sectionRenderer node ctx = ctx.renderAstNodeDefault $ insertAttribute node "id" (toLower)
-
-headingRenderer :: Heading -> HTMLRenderer -> String
-headingRenderer node ctx = ctx.renderAstNodeDefault node
 
 type HTMLRenderer =
   { renderChildren :: forall t a. HasChildren t a -> String
