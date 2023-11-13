@@ -1,5 +1,11 @@
 package:
-  name: djot-ps
+  name: djot
+  publish:
+    version: 0.1.0
+    license: MIT
+    location:
+      githubOwner: sondr3
+      githubRepo: djot-ps
   dependencies:
     - console
     - debug
@@ -16,6 +22,9 @@ package:
       - spec
     main: Test.Main
 workspace:
+  build_opts:
+    strict: true
   extra_packages: {}
+  lock: true
   package_set:
     registry: 44.3.0

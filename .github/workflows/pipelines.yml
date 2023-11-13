@@ -17,9 +17,9 @@ jobs:
           psa: latest
 
       - name: Cache PureScript dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-spago-${{ hashFiles('**/*.dhall') }}
+          key: ${{ runner.os }}-spago-${{ hashFiles('**/spago.yaml') }}
           path: |
             .spago
             output
@@ -43,7 +43,7 @@ jobs:
         run: npx spago install
 
       - name: Build
-        run: npx spago build
+        run: npx spago build --strict
 
       - name: Test
         run: npx spago test --strict
