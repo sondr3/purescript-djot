@@ -1,10 +1,10 @@
 module Test.Main where
 
-import Djot (Emph, HTMLRenderer, HTMLVisitor, Heading, RenderHTMLOptions(..), Section, buildOverrides, emptyVisitor, insertAttribute, parse, renderHtml)
 import Prelude
 
 import Data.Maybe (Maybe(..))
 import Data.String (toLower, trim)
+import Djot (Emph, HTMLRenderer, HTMLVisitor, Heading, RenderHTMLOptions(..), Section, buildOverrides, emptyVisitor, insertAttribute, parse, renderHtml)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Test.Spec (it)
@@ -12,29 +12,29 @@ import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter (consoleReporter)
 import Test.Spec.Runner (runSpec)
 
-sectionRenderer :: Section -> HTMLRenderer -> String
+sectionRenderer ∷ Section → HTMLRenderer → String
 sectionRenderer node ctx = ctx.renderAstNodeDefault $ insertAttribute node "id" (toLower)
 
-headingRenderer :: Heading -> HTMLRenderer -> String
+headingRenderer ∷ Heading → HTMLRenderer → String
 headingRenderer node ctx = ctx.renderAstNodeDefault node
 
-emphRenderer :: Emph -> HTMLRenderer -> String
+emphRenderer ∷ Emph → HTMLRenderer → String
 emphRenderer node ctx = "<span class='emphasis'>" <> (ctx.renderChildren node) <> "</span>"
 
-testVisitor :: HTMLVisitor -> HTMLVisitor
+testVisitor ∷ HTMLVisitor → HTMLVisitor
 testVisitor v = buildOverrides $ v
   { emph = Just emphRenderer
   , section = Just sectionRenderer
   , heading = Just headingRenderer
   }
 
-testOptions :: RenderHTMLOptions
+testOptions ∷ RenderHTMLOptions
 testOptions = RenderHTMLOptions
   { overrides: Just $ testVisitor emptyVisitor
   , warn: Nothing
   }
 
-main :: Effect Unit
+main ∷ Effect Unit
 main = launchAff_ $ runSpec [ consoleReporter ] do
   let
     text = "# Test that LOWER _works_"
