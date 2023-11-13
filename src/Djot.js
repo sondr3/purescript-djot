@@ -1,17 +1,7 @@
 import * as djot from "@djot/djot";
 
-export function renderHtml_(ast) {
-  return function (options) {
-    console.log("options", options);
-    return djot.renderHTML(ast, options);
-  };
-}
-
-export function parse_(input) {
-  return function (options) {
-    const res = djot.parse(input, options);
-    return res;
-  };
+export function parseImpl(input, options) {
+  return djot.parse(input, options);
 }
 
 export function renderWarning_(warn) {
@@ -38,10 +28,5 @@ export function renderHtmlImpl(isJust, renderer, opts) {
     const warn = isJust(inner.warn) ? inner.warn.value0 : null;
     options = { overrides, warn };
   }
-  console.log("options", options);
   return djot.renderHTML(renderer, options);
 }
-
-// export const renderChildren_ = (node) => (renderer) => {
-//   return renderer.renderChildren(node);
-// };

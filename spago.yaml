@@ -13,6 +13,8 @@ package:
     - spec
     - strings
     - tuples
+    - undefined-is-not-a-problem
+    - unsafe-coerce
   test:
     dependencies: []
     main: Test.Main
