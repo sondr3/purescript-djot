@@ -15,26 +15,23 @@ jobs:
         with:
           purescript: latest
           psa: latest
+          purs-tidy: latest
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v4
         with:
-          key: ${{ runner.os }}-spago-${{ hashFiles('**/spago.yaml') }}
+          key: ${{ runner.os }}-spago-${{ hashFiles('**/spago.lock') }}
           path: |
             .spago
             output
 
-      - uses: pnpm/action-setup@v2.4.0
-        with:
-          version: 8
-
       - uses: actions/setup-node@v4.0.1
         with:
           node-version: latest
-          cache: "pnpm"
+          cache: npm
 
       - name: Install npm packages
-        run: pnpm install --frozen-lockfile
+        run: npm clean-install
 
       - name: Check formatting
         run: npx purs-tidy check src test
