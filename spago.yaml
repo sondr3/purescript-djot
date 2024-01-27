@@ -27,4 +27,4 @@ workspace:
   extra_packages: {}
   lock: true
   package_set:
-    registry: 44.3.0
+    registry: 48.7.1

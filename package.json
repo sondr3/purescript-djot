@@ -6,7 +6,7 @@
     "@djot/djot": "0.2.5"
   },
   "devDependencies": {
-    "purs-tidy": "0.10.0",
-    "spago": "0.93.18"
+    "purs-tidy": "0.10.1",
+    "spago": "0.93.24"
   }
 }
